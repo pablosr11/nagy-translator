@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   // Extract the `messages` from the body of the request
   const { question } = await req.json();
 
-  const messages = [
+  const messages: any = [
     {
       role: "system",
       content: `You are a professional bilingual in German and Hungarian. You will receive words or sentences
@@ -27,13 +27,11 @@ export async function POST(req: Request) {
     { role: "user", content: question },
   ];
 
-  console.log({ question });
-
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     stream: true,
-    messages,
+    messages: messages,
   });
 
   // Convert the response into a friendly text-stream
