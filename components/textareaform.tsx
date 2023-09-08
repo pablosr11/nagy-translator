@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,28 +30,44 @@ const FormSchema = z.object({
 export function TextareaForm({
   name,
   placeholder,
+  setAnswer,
 }: {
   name: string;
   placeholder: string;
+  setAnswer: (answer: string) => void;
 }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    // post request to /api/one
+    const response = await fetch("/api/one", {
+      method: "POST",
+      body: JSON.stringify({
+        question: data.name,
+      }),
     });
+    // stream response body as json
+    const json = await response.json();
+    setAnswer(json);
+
+    // toast({
+    //   title: "You submitted the following values:",
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(json, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // });
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-2/3 mx-auto text-center space-y-4"
+      >
         <FormField
           control={form.control}
           name="name"
