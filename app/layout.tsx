@@ -1,7 +1,9 @@
-import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
+import "./globals.css";
+import Logito from "./logo.png";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +21,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <div className="">header</div>
+          <div className=" pt-10">
+            <Image className="mx-auto" alt="logo" src={Logito} />
+          </div>
           {children}
-          <div>footer</div>
+
+          <div className="text-center text-sm">
+            by{" "}
+            <a className="underline" href="https://www.psiesta.com">
+              @psiesta
+            </a>{" "}
+          </div>
         </div>
 
         <Toaster />

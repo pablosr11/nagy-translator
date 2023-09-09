@@ -8,14 +8,14 @@ export default function Home() {
 
   return (
     <section className="py-10 sm:py-16 lg:py-24">
-      <div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-slate-100">
+      <div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <TextareaForm
           name="Just type something in whatever language you fancy"
           placeholder="Kezdj el írni a fordításhoz"
           setAnswer={setAnswer}
         />
       </div>
-      <ScrollArea className="h-[300px] w-[300px] lg:w-[800px] lg:h-[300px]  my-3 px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-teal-100 rounded-md p-4">
+      <ScrollArea className="h-[300px] w-[300px] lg:w-[800px] lg:h-[300px]  my-3 px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8 bg-slate-100 rounded-md p-4">
         {/* show translation if its not undefined and answer its not empty string */}
         {answer && (
           <div className="text-center grid grid-cols-2 gap-4">
