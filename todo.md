@@ -1,1 +1,4 @@
+- make it look minimally good and resize on mobile (text etc. )
+- include more examples, remove reply. maybe add extra if its a verb, or anonyms or smth like this?
+- translate, hungarian, german, english.
 - screen is larger than iphones max

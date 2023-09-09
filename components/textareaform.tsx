@@ -51,15 +51,6 @@ export function TextareaForm({
     // stream response body as json
     const json = await response.json();
     setAnswer(json);
-
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(json, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
   }
 
   return (
@@ -73,7 +64,7 @@ export function TextareaForm({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{name}</FormLabel>
+              <FormLabel className="text-lg">{name}</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder={placeholder}

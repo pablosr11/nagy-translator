@@ -10,7 +10,7 @@ export default function Home() {
     <section className="py-10 sm:py-16 lg:py-24">
       <div className="px-4 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <TextareaForm
-          name="Just type something in whatever language you fancy"
+          name="Magyar<->Deustch"
           placeholder="Kezdj el írni a fordításhoz"
           setAnswer={setAnswer}
         />
