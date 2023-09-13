@@ -16,19 +16,11 @@ export async function POST(req: Request) {
   const { question } = await req.json();
 
   // extract the origin ip
-  const host = req.headers.get("host");
-  const origin = req.headers.get("origin");
-  const referer = req.headers.get("referer");
   const forwarded = req.headers.get("x-forwarded-for");
-  const ip = req.headers.get("x-real-ip");
-
-  console.log({
-    host,
-    origin,
-    referer,
-    forwarded,
-    ip,
-  });
+  const realIp = req.headers.get("x-real-ip");
+  // either forwarded for or real ip or null
+  const ip = forwarded ? forwarded : realIp ? realIp : null;
+  console.log({ ip, question });
 
   const messages: any = [
     {
