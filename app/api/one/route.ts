@@ -1,11 +1,16 @@
 // app/api/chat/route.ts
-
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import OpenAI from "openai";
+import { cookies } from "next/headers";
+
 import { OpenAIStream, StreamingTextResponse } from "ai";
+
+import type { Database } from "@/lib/database.types";
 
 // Optional, but recommended: run on the edge runtime.
 // See https://vercel.com/docs/concepts/functions/edge-functions
 export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -14,13 +19,21 @@ const openai = new OpenAI({
 export async function POST(req: Request) {
   // Extract the `messages` from the body of the request
   const { question } = await req.json();
+  const cookieStore = cookies();
+
+  const supabase = createRouteHandlerClient<Database>({
+    cookies: () => cookieStore,
+  });
 
   // extract the origin ip
   const forwarded = req.headers.get("x-forwarded-for");
   const realIp = req.headers.get("x-real-ip");
-  // either forwarded for or real ip or null
   const ip = forwarded ? forwarded : realIp ? realIp : null;
-  console.log({ ip, question });
+
+  // try to store in DB.
+  const { error, status } = await supabase
+    .from("nagy_requests")
+    .insert({ question, ip_address: ip });
 
   const messages: any = [
     {
