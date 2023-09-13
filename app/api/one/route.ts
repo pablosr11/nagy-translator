@@ -15,6 +15,21 @@ export async function POST(req: Request) {
   // Extract the `messages` from the body of the request
   const { question } = await req.json();
 
+  // extract the origin ip
+  const host = req.headers.get("host");
+  const origin = req.headers.get("origin");
+  const referer = req.headers.get("referer");
+  const forwarded = req.headers.get("x-forwarded-for");
+  const ip = req.headers.get("x-real-ip");
+
+  console.log({
+    host,
+    origin,
+    referer,
+    forwarded,
+    ip,
+  });
+
   const messages: any = [
     {
       role: "system",
