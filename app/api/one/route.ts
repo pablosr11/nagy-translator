@@ -1,7 +1,7 @@
 // app/api/chat/route.ts
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import OpenAI from "openai";
 import { cookies } from "next/headers";
+import OpenAI from "openai";
 
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
